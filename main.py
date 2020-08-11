@@ -1,6 +1,6 @@
 from flask import Flask
 # from flask_session import Session
-from config import DevConfig, ProdConfig, db
+from Configuration.config import DevConfig, ProdConfig, db
 from Application.Blog import blog
 from Application.DustFlight_Dragon import dustflight_dragon
 

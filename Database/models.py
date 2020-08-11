@@ -1,9 +1,9 @@
 import sys
+
+sys.path.append("../")
 from main import app
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-sys.path.append("../")
-
 
 db = SQLAlchemy(app)
 

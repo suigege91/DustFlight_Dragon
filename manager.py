@@ -1,4 +1,5 @@
-from main import app
+# from main import app
+from Application import app
 from flask_script import Server, Manager
 from Database.models import db, User, Post
 
