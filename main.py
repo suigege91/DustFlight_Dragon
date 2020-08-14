@@ -1,13 +1,13 @@
 from flask import Flask
 # from flask_session import Session
+from flask_restful import Api, Resource
 from Configuration.config import DevConfig, ProdConfig, db
 from Application.Blog import blog
-from Application.DustFlight_Dragon import dustflight_dragon
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 app.register_blueprint(blog, url_prefix='/blog')
-app.register_blueprint(dustflight_dragon, url_prefix='/dustflight_dragon')
+api = Api(app)
 db.init_app(app)
 
 
@@ -39,6 +39,20 @@ def welcome_information():
 @app.route("/index")
 def index():
     return "<h1>DustFlight VNS - Welcome Page</h1>"
+
+
+class API_DB_Fetch_All(Resource):
+    def get(self):
+        collection_list = []
+        users_list = User.query.order_by(
+            User.user_register_date.desc()).limit(20).all()
+        print("[CONSOLE] Running DB Fetch Listing => [%s]" % str(users_list))
+        for user in users_list:
+            collection_list.append(user.to_json())
+        return {"stories": collection_list}
+
+
+api.add_resource(API_DB_Fetch_All, '/api/db_fetch_all')
 
 
 def main():

@@ -1,18 +1,16 @@
 import os
 import sys
 
-sys.path.append(os.path.dirname(__file__) + os.sep + '../../')
+sys.path.append("../")
 
 from flask import Flask
 # from flask_session import Session
 from Configuration.config import DevConfig, ProdConfig, db
 from Application.Blog import blog
-from Application.DustFlight_Dragon import dustflight_dragon
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 app.register_blueprint(blog, url_prefix='/blog')
-app.register_blueprint(dustflight_dragon, url_prefix='/dustflight_dragon')
 db.init_app(app)
 
 
